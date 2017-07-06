@@ -35,6 +35,9 @@ function recentTweets() {
 };
 
 function songInfo() {
+	if (titleInput === undefined) {
+		titleInput = "The Sign";
+	}
 	spotifyApi.searchTracks('track:' + titleInput)
 		.then(function(data) {
 			firstResult = data.body.tracks.items[0];
@@ -44,7 +47,7 @@ function songInfo() {
 			console.log("Song title: " + firstResult.name);
 			console.log("Album title: " + firstResult.album.name);
 			console.log("Preview link: " + firstResult.external_urls.spotify);
-			
+			log(firstResult);
 		}, function(err) {
 			console.log("Error! " + err);
 		});
@@ -54,7 +57,6 @@ function movieInfo() {
 	if ( titleInput === undefined) {
 		titleInput = "Mr. Nobody";
 	}
-
 	let queryURL = "http://www.omdbapi.com/?t=" + titleInput + "&apiKey=" + omdbAPI;
 	request(queryURL, function(err, response, body) {
 		if( !err ) {
